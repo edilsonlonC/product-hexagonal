@@ -27,7 +27,7 @@ public class ProductController {
     public ResponseEntity<ProductDTOResponse> create(@RequestBody  ProductDTOCreate productDTOCreate) {
         Product product = productDTOMapper.productDTOCreateToProduct(productDTOCreate);
         ProductDTOResponse productDTOResponse = productDTOMapper.productToProductDTOResponse(productUseCase.create(product));
-        logger.info("Product was created");
+        logger.info("Product was created with sku : {}", product.getSku());
         return new ResponseEntity<>(productDTOResponse, HttpStatus.OK);
     }
 
