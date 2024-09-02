@@ -22,7 +22,7 @@ public class ProductEntity {
     private String displayName;
     private String description;
     private String brand;
-//    @ManyToMany()
-//    private List<CategoryEntity> categories;
+    @ManyToMany()
+    private List<CategoryEntity> categories;
 
 }
