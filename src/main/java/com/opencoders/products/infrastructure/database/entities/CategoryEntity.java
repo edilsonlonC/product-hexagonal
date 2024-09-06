@@ -1,6 +1,5 @@
 package com.opencoders.products.infrastructure.database.entities;
 
-import com.opencoders.products.domain.models.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,11 +20,11 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-//    @ManyToMany
-//    @JoinTable(
-//            name = "products_categories",
-//            joinColumns = @JoinColumn(name = "product_id"),
-//            inverseJoinColumns = @JoinColumn(name = "category_id")
-//    )
-//    private List<ProductEntity> products;
+    @ManyToMany
+    @JoinTable(
+            name = "products_categories",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<ProductEntity> products;
 }

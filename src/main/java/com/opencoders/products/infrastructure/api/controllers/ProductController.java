@@ -5,6 +5,8 @@ import com.opencoders.products.domain.models.Product;
 import com.opencoders.products.infrastructure.DTO.ProductDTOCreate;
 import com.opencoders.products.infrastructure.DTO.ProductDTOResponse;
 import com.opencoders.products.infrastructure.mapper.ProductDTOMapper;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
     Logger logger = LoggerFactory.getLogger(ProductController.class);
-    @Autowired
-    private ProductDTOMapper productDTOMapper;
-    @Autowired
-    private ProductUseCase productUseCase;
+    private final ProductDTOMapper productDTOMapper;
+    private final ProductUseCase productUseCase;
 
     @PostMapping
     public ResponseEntity<ProductDTOResponse> create(@RequestBody  ProductDTOCreate productDTOCreate) {
         Product product = productDTOMapper.productDTOCreateToProduct(productDTOCreate);
         ProductDTOResponse productDTOResponse = productDTOMapper.productToProductDTOResponse(productUseCase.create(product));
-        logger.info("Product was created");
+        logger.info("Product was created with sku : {}", product.getSku());
         return new ResponseEntity<>(productDTOResponse, HttpStatus.OK);
     }
 
