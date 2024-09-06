@@ -53,7 +53,7 @@ public class JwtAuthentication {
 
     }
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode("signinkey");
+        byte[] keyBytes = Decoders.BASE64.decode("4348520549a54e7a6d7d556d69540a8e4405c0f74821ad637e9a1039f4db7f1a");
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

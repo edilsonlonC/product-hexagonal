@@ -10,7 +10,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProductDTOMapper {
-   ProductDTOMapper INSTANCE = Mappers.getMapper(ProductDTOMapper.class);
    Product productDTOCreateToProduct(ProductDTOCreate productDTOCreate);
    ProductDTOResponse productToProductDTOResponse(Product product);
    List<ProductDTOResponse> productsToProductsDtoResponse(List<Product> products);

@@ -4,6 +4,8 @@ import com.opencoders.products.application.products.usecases.UserUseCase;
 import com.opencoders.products.infrastructure.DTO.UserDTOCreate;
 import com.opencoders.products.infrastructure.DTO.UserDTOResponse;
 import com.opencoders.products.infrastructure.mapper.UserDTOMapper;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserDTOMapper userDTOMapper;
-    @Autowired
-    private UserUseCase userUseCase;
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final UserDTOMapper userDTOMapper;
+    private final UserUseCase userUseCase;
+    private final PasswordEncoder passwordEncoder;
     @PostMapping
     public ResponseEntity<UserDTOResponse> create ( @RequestBody  UserDTOCreate userDTOCreate) {
         userDTOCreate.setPassword(passwordEncoder.encode(userDTOCreate.getPassword()));
