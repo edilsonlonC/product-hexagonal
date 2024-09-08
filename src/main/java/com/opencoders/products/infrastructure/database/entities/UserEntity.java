@@ -1,13 +1,13 @@
 package com.opencoders.products.infrastructure.database.entities;
 
+import com.opencoders.products.domain.models.Roles;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,10 +25,26 @@ public class UserEntity implements UserDetails {
     private String surname;
     private String email;
     private String password;
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+        cascade = CascadeType.REMOVE
+    )
+    @JoinTable(name = "users_roles",
+    joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns =  @JoinColumn(name = "roles_id")
+    )
+
+
+
+    private List<RolesEntity> roles;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+    public List<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        for (RolesEntity role: roles) {
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        }
+        return authorities;
     }
 
     @Override

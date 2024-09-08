@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -12,4 +14,5 @@ public class UserDTOResponse {
     private String name;
     private String surname;
     private String email;
+    private List<RoleDtoResponse> roles;
 }

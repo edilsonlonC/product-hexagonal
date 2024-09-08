@@ -34,7 +34,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain configure (HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth ->
                         auth.dispatcherTypeMatchers(DispatcherType.FORWARD,DispatcherType.ERROR).permitAll()
-                                .requestMatchers("/auth/**", "/users").permitAll()
+                            .requestMatchers("/auth/**").permitAll().requestMatchers("/users").permitAll().requestMatchers("/products").hasRole("ADMIN")
                                 .anyRequest().authenticated()
 
                 )

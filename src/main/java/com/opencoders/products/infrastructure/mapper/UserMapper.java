@@ -5,7 +5,7 @@ import com.opencoders.products.infrastructure.database.entities.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = RoleMapper.class)
 public interface UserMapper {
     User userEntityToUser(UserEntity userEntity);
     UserEntity userToUserEntity(User user);

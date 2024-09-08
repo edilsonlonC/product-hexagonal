@@ -9,7 +9,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
-@Mapper( componentModel = "spring"
+@Mapper( componentModel = "spring",
+        uses=RoleDtoMapper.class
+
 )
 
 public interface UserDTOMapper {

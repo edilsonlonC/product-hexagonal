@@ -1,6 +1,7 @@
 package com.opencoders.products.infrastructure.api.controllers;
 
 import com.opencoders.products.application.products.usecases.UserUseCase;
+import com.opencoders.products.infrastructure.DTO.AddRolesDto;
 import com.opencoders.products.infrastructure.DTO.UserDTOCreate;
 import com.opencoders.products.infrastructure.DTO.UserDTOResponse;
 import com.opencoders.products.infrastructure.mapper.UserDTOMapper;
@@ -31,6 +32,13 @@ public class UserController {
                 ),
                 HttpStatus.CREATED
         );
+
+    }
+    @PostMapping(value = "/add-roles")
+    public ResponseEntity<UserDTOResponse> addRoles (@RequestBody AddRolesDto addRolesDto) {
+        String userEmail = addRolesDto.getEmail();
+        Long roleId = addRolesDto.getIdRole();
+        return new ResponseEntity<>(userDTOMapper.userToUserDtoResponse(userUseCase.addRole(roleId, userEmail)), HttpStatus.OK);
 
     }
 }
